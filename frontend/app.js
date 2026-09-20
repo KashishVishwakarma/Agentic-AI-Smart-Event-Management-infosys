@@ -1,5 +1,6 @@
 // --- Hardcoded Backend API Endpoint ---
-const API_BASE = "https://backend-event-3-toqe.onrender.com";
+
+const API_BASE = "https://agentic-ai-smart-event-management-infosys.onrender.com";
 
 // --- State Variables ---
 let authToken = localStorage.getItem('pulse_token') || null;
