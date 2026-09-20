@@ -1,4 +1,4 @@
-// --- Live Render Backend URL ---
+// --- Hardcoded Backend API Endpoint ---
 const API_BASE = "https://backend-event-3-toqe.onrender.com";
 
 // --- State Variables ---
@@ -9,7 +9,7 @@ let allVenues = [];
 let currentSessionId = localStorage.getItem('pulse_sess') || ('sess_' + Math.random().toString(36).slice(2, 9));
 localStorage.setItem('pulse_sess', currentSessionId);
 
-// --- Initialization ---
+// --- App Bootstrap ---
 document.addEventListener('DOMContentLoaded', () => {
   if (window.lucide) lucide.createIcons();
   updateAuthUI();
@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
   loadVenues();
 });
 
-// --- Centralized API Request Handler (1:1 with FastAPI /api routes) ---
+// --- Centralized API Request Handler (Exact 1:1 match for your /api routes) ---
 async function apiRequest(endpoint, options = {}) {
   options.headers = options.headers || {};
   
@@ -158,7 +158,7 @@ async function loadEvents() {
   }
 }
 
-// POST /api/events (Admin Only)
+// POST /api/events (Admin Protected)
 async function handleCreateEvent(e) {
   e.preventDefault();
   const payload = {
@@ -177,7 +177,7 @@ async function handleCreateEvent(e) {
       body: JSON.stringify(payload)
     });
     const data = await res.json();
-    if (!res.ok) throw new Error(data.detail || 'Event creation failed. Make sure you are logged in as ADMIN.');
+    if (!res.ok) throw new Error(data.detail || 'Event creation failed. Make sure you are logged in as an ADMIN.');
     showToast('Event published successfully!', 'success');
     toggleModal('eventModal', false);
     e.target.reset();
@@ -250,7 +250,7 @@ async function loadVenues() {
   }
 }
 
-// POST /api/venues (Admin Only)
+// POST /api/venues (Admin Protected)
 async function handleCreateVenue(e) {
   e.preventDefault();
   const payload = {
@@ -346,7 +346,7 @@ function appendThinkingBubble(id) {
   const div = document.createElement('div');
   div.id = id;
   div.className = "flex gap-2.5 items-center text-slate-400 text-xs italic";
-  div.innerHTML = `<div class="w-2 h-2 rounded-full bg-indigo-500 animate-ping"></div> AI Agent is thinking...`;
+  div.innerHTML = `<div class="w-2 h-2 rounded-full bg-indigo-500 animate-ping"></div> AI Agent is reasoning...`;
   stream.appendChild(div);
   stream.scrollTop = stream.scrollHeight;
 }
@@ -383,7 +383,7 @@ function clearChat() {
   if (stream) stream.innerHTML = `<div class="text-center py-4 text-xs text-slate-400">Conversation reset.</div>`;
 }
 
-// --- My Registrations (GET /api/registrations/me, DELETE /api/events/{id}/register) ---
+// --- My Passes / Registrations (GET /api/registrations/me, DELETE /api/events/{id}/register) ---
 async function loadMyTickets() {
   const container = document.getElementById('ticketsContainer');
   if (!authToken) {
