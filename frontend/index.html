@@ -3,106 +3,123 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Pulse Events — Discover & Book Premier Experiences</title>
-  <!-- Tailwind CSS -->
+  <title>Pulse Events — Modern Experience & Venue Platform</title>
+  <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- Lucide Icons -->
   <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-
-  <style>
-    body { font-family: 'Plus Jakarta Sans', sans-serif; }
-    .glass-nav {
-      background: rgba(255, 255, 255, 0.85);
-      backdrop-filter: blur(12px);
-    }
-    .custom-scrollbar::-webkit-scrollbar { width: 5px; }
-    .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 9999px; }
-  </style>
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body class="bg-[#F8FAFC] text-slate-900 min-h-screen flex flex-col antialiased selection:bg-indigo-500 selection:text-white">
 
-  <!-- Notification Banner -->
+  <!-- Notification Toast Stack -->
   <div id="toastContainer" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2 max-w-sm pointer-events-none"></div>
 
-  <!-- Navigation Bar -->
-  <header class="glass-nav border-b border-slate-200/80 sticky top-0 z-40 transition">
+  <!-- Main Navigation Bar -->
+  <header class="glass-nav border-b border-slate-200 sticky top-0 z-40">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
       
       <!-- Brand Logo -->
-      <div class="flex items-center gap-3">
+      <div class="flex items-center gap-3 cursor-pointer" onclick="navigate('explore')">
         <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-indigo-600 to-violet-500 flex items-center justify-center text-white shadow-lg shadow-indigo-500/25">
           <i data-lucide="sparkles" class="w-6 h-6"></i>
         </div>
         <div>
           <span class="text-xl font-extrabold tracking-tight bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-800 bg-clip-text text-transparent">Pulse</span>
-          <span class="text-xs uppercase tracking-widest text-indigo-600 font-bold block -mt-1">Events</span>
+          <span class="text-xs uppercase tracking-widest text-indigo-600 font-bold block -mt-1">Events & Venues</span>
         </div>
       </div>
 
-      <!-- Navigation Links -->
-      <nav class="hidden md:flex items-center gap-1 bg-slate-100/80 p-1.5 rounded-full border border-slate-200">
-        <button onclick="navigate('explore')" id="nav-explore" class="px-5 py-2 rounded-full text-xs font-semibold bg-white text-slate-900 shadow-sm transition">
-          Explore Events
+      <!-- Navigation Tabs -->
+      <nav class="hidden md:flex items-center gap-1 bg-slate-100/90 p-1.5 rounded-full border border-slate-200 text-xs font-semibold">
+        <button onclick="navigate('explore')" id="nav-explore" class="px-4 py-2 rounded-full bg-white text-slate-900 shadow-sm transition">
+          Browse Events
         </button>
-        <button onclick="navigate('chat')" id="nav-chat" class="px-5 py-2 rounded-full text-xs font-semibold text-slate-600 hover:text-slate-900 transition flex items-center gap-1.5">
-          <i data-lucide="bot" class="w-3.5 h-3.5 text-indigo-500"></i> AI Concierge
+        <button onclick="navigate('venues')" id="nav-venues" class="px-4 py-2 rounded-full text-slate-600 hover:text-slate-900 transition">
+          Venues
         </button>
-        <button onclick="navigate('tickets')" id="nav-tickets" class="px-5 py-2 rounded-full text-xs font-semibold text-slate-600 hover:text-slate-900 transition">
-          My Tickets
+        <button onclick="navigate('chat')" id="nav-chat" class="px-4 py-2 rounded-full text-slate-600 hover:text-slate-900 transition flex items-center gap-1">
+          <i data-lucide="bot" class="w-3.5 h-3.5 text-indigo-500"></i> AI Agent
+        </button>
+        <button onclick="navigate('tickets')" id="nav-tickets" class="px-4 py-2 rounded-full text-slate-600 hover:text-slate-900 transition">
+          My Passes
         </button>
       </nav>
 
-      <!-- Auth Controls -->
-      <div id="navAuthSlot" class="flex items-center gap-3">
-        <!-- Injected dynamically by JS -->
-      </div>
+      <!-- Authentication Container -->
+      <div id="navAuthSlot" class="flex items-center gap-3"></div>
     </div>
   </header>
 
-  <!-- Hero Section -->
-  <section class="relative overflow-hidden bg-gradient-to-b from-indigo-50/60 via-white to-[#F8FAFC] border-b border-slate-100">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 text-center relative z-10">
-      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-indigo-50 border border-indigo-100/80 text-indigo-700 text-xs font-semibold mb-6 shadow-sm">
-        <span class="flex h-2 w-2 rounded-full bg-indigo-600"></span> Smart Autonomous Event Management
+  <!-- Hero Header Section -->
+  <section class="relative overflow-hidden bg-gradient-to-b from-indigo-50/50 via-white to-[#F8FAFC] border-b border-slate-200/60">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 flex flex-col md:flex-row items-center justify-between gap-8">
+      <div class="max-w-2xl space-y-4">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-50 border border-indigo-100 text-indigo-700 text-xs font-semibold">
+          <span class="flex h-2 w-2 rounded-full bg-indigo-600"></span> Live Platform Connected
+        </div>
+        <h1 class="text-3xl sm:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight">
+          Explore gatherings, book spaces, & reserve tickets instantly.
+        </h1>
+        <p class="text-slate-600 text-sm sm:text-base leading-relaxed">
+          Full-stack event coordinator with real-time seat tracking, registered venues, and an autonomous AI agent for instant queries.
+        </p>
       </div>
-      <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-slate-900 tracking-tight leading-[1.15] max-w-3xl mx-auto">
-        Book campus sessions, summits, & workshops seamlessly.
-      </h1>
-      <p class="mt-5 text-slate-600 text-base sm:text-lg max-w-xl mx-auto leading-relaxed">
-        Discover verified events or use our autonomous conversational AI assistant to reserve your seat in seconds.
-      </p>
+      <div class="flex flex-wrap gap-3">
+        <button onclick="openCreateModal('event')" class="px-5 py-3 rounded-2xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold shadow-md shadow-indigo-200 transition flex items-center gap-2">
+          <i data-lucide="calendar-plus" class="w-4 h-4"></i> Create Event
+        </button>
+        <button onclick="openCreateModal('venue')" class="px-5 py-3 rounded-2xl bg-white border border-slate-200 hover:bg-slate-50 text-slate-800 text-xs font-bold shadow-sm transition flex items-center gap-2">
+          <i data-lucide="map-pin" class="w-4 h-4"></i> Add Venue
+        </button>
+      </div>
     </div>
   </section>
 
-  <!-- Dynamic Content Container -->
+  <!-- Dynamic Views Container -->
   <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 flex-1 w-full">
 
     <!-- VIEW 1: Explore Events -->
-    <div id="view-explore" class="space-y-8">
-      <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-slate-200 pb-5">
+    <section id="view-explore" class="space-y-6">
+      <div class="flex justify-between items-center border-b border-slate-200 pb-4">
         <div>
-          <h2 class="text-2xl font-bold text-slate-900">Featured Upcoming Events</h2>
-          <p class="text-sm text-slate-500 mt-1">Browse scheduled sessions and claim your admission pass.</p>
+          <h2 class="text-2xl font-bold text-slate-900">Scheduled Events</h2>
+          <p class="text-xs text-slate-500 mt-0.5">Active event roster from the database</p>
         </div>
-        <button onclick="loadEvents()" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white border border-slate-200 hover:bg-slate-50 text-xs font-semibold text-slate-700 shadow-sm transition">
-          <i data-lucide="refresh-cw" class="w-3.5 h-3.5"></i> Refresh Roster
+        <button onclick="loadEvents()" class="px-3.5 py-2 rounded-xl bg-white border border-slate-200 hover:bg-slate-50 text-xs font-semibold text-slate-700 shadow-sm flex items-center gap-1.5 transition">
+          <i data-lucide="refresh-cw" class="w-3.5 h-3.5"></i> Refresh
         </button>
       </div>
+      <div id="eventsContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+    </section>
 
-      <!-- Events Grid -->
-      <div id="eventsContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <!-- Injected via JS -->
+    <!-- VIEW 2: Registered Venues -->
+    <section id="view-venues" class="hidden space-y-6">
+      <div class="flex justify-between items-center border-b border-slate-200 pb-4">
+        <div>
+          <h2 class="text-2xl font-bold text-slate-900">Registered Venues</h2>
+          <p class="text-xs text-slate-500 mt-0.5">Locations and auditoriums configured for events</p>
+        </div>
+        <div class="flex items-center gap-2">
+          <button onclick="openCreateModal('venue')" class="px-3.5 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold shadow-sm flex items-center gap-1.5 transition">
+            <i data-lucide="plus" class="w-3.5 h-3.5"></i> New Venue
+          </button>
+          <button onclick="loadVenues()" class="px-3.5 py-2 rounded-xl bg-white border border-slate-200 hover:bg-slate-50 text-xs font-semibold text-slate-700 shadow-sm flex items-center gap-1.5 transition">
+            <i data-lucide="refresh-cw" class="w-3.5 h-3.5"></i> Refresh
+          </button>
+        </div>
       </div>
-    </div>
+      <div id="venuesContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+    </section>
 
-    <!-- VIEW 2: AI Concierge / Chat -->
-    <div id="view-chat" class="hidden max-w-3xl mx-auto">
-      <div class="bg-white rounded-3xl border border-slate-200 shadow-xl overflow-hidden flex flex-col h-[640px]">
-        
-        <!-- Header -->
+    <!-- VIEW 3: AI Concierge / Agent Chat -->
+    <section id="view-chat" class="hidden max-w-3xl mx-auto">
+      <div class="bg-white rounded-3xl border border-slate-200 shadow-xl overflow-hidden flex flex-col h-[620px]">
         <div class="p-4 sm:p-5 border-b border-slate-100 bg-slate-50/50 flex items-center justify-between">
           <div class="flex items-center gap-3">
             <div class="w-10 h-10 rounded-2xl bg-indigo-600 text-white flex items-center justify-center shadow-md shadow-indigo-200">
@@ -110,35 +127,34 @@
             </div>
             <div>
               <h3 class="font-bold text-slate-900 text-sm">Autonomous Event Agent</h3>
-              <p class="text-xs text-slate-500">Direct booking, cancellations & FAQs</p>
+              <p class="text-xs text-slate-500">Direct booking, cancellations & database assistance</p>
             </div>
           </div>
-          <button onclick="clearChat()" class="text-xs font-medium text-slate-400 hover:text-slate-600 transition">Reset</button>
+          <button onclick="clearChat()" class="text-xs font-medium text-slate-400 hover:text-slate-600">Reset</button>
         </div>
 
-        <!-- Chat Stream -->
         <div id="chatStream" class="flex-1 overflow-y-auto p-5 space-y-4 custom-scrollbar bg-slate-50/20">
           <div class="flex gap-3 max-w-md">
             <div class="w-8 h-8 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center shrink-0">
               <i data-lucide="sparkles" class="w-4 h-4"></i>
             </div>
             <div class="bg-white border border-slate-200/80 rounded-2xl rounded-tl-none p-4 text-xs text-slate-700 shadow-sm leading-relaxed space-y-2">
-              <p>Hi there! I am your AI Event Concierge. How can I assist you?</p>
+              <p>Hi! I am your AI event coordinator. You can ask me questions or command actions directly:</p>
               <div class="pt-1 flex flex-wrap gap-1.5">
                 <button onclick="quickPrompt('What events are available?')" class="bg-slate-100 hover:bg-slate-200 text-slate-700 px-2.5 py-1 rounded-lg text-[11px] transition">"What events are available?"</button>
+                <button onclick="quickPrompt('What venues exist?')" class="bg-slate-100 hover:bg-slate-200 text-slate-700 px-2.5 py-1 rounded-lg text-[11px] transition">"What venues exist?"</button>
                 <button onclick="quickPrompt('Register me for event 1')" class="bg-slate-100 hover:bg-slate-200 text-slate-700 px-2.5 py-1 rounded-lg text-[11px] transition">"Register me for event 1"</button>
               </div>
             </div>
           </div>
         </div>
 
-        <!-- Input Bar -->
         <div class="p-4 border-t border-slate-100 bg-white">
           <form onsubmit="handleSendChat(event)" class="flex gap-2">
             <input 
               type="text" 
               id="chatInput" 
-              placeholder="Ask anything or request a booking..." 
+              placeholder="Ask anything or command a booking..." 
               autocomplete="off"
               class="flex-1 bg-slate-50 border border-slate-200 rounded-2xl px-4 py-3 text-xs focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500" 
             />
@@ -148,53 +164,129 @@
             </button>
           </form>
         </div>
-
       </div>
-    </div>
+    </section>
 
-    <!-- VIEW 3: My Tickets -->
-    <div id="view-tickets" class="hidden max-w-2xl mx-auto space-y-6">
+    <!-- VIEW 4: User Ticket Reservations -->
+    <section id="view-tickets" class="hidden max-w-2xl mx-auto space-y-6">
       <div class="border-b border-slate-200 pb-4">
-        <h2 class="text-2xl font-bold text-slate-900">Your Reserved Tickets</h2>
-        <p class="text-sm text-slate-500 mt-1">Review your active registrations and manage your seats.</p>
+        <h2 class="text-2xl font-bold text-slate-900">Your Reserved Passes</h2>
+        <p class="text-xs text-slate-500 mt-0.5">Manage confirmed registrations and cancel passes</p>
       </div>
-      <div id="ticketsContainer" class="space-y-3">
-        <!-- Injected via JS -->
-      </div>
-    </div>
+      <div id="ticketsContainer" class="space-y-3"></div>
+    </section>
 
   </main>
 
-  <!-- Authentication Modal (Sign In / Register) -->
+  <!-- MODAL 1: Create Venue Modal -->
+  <div id="venueModal" class="fixed inset-0 bg-slate-950/40 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl border border-slate-100 space-y-4">
+      <div class="flex justify-between items-center">
+        <div>
+          <h3 class="font-bold text-slate-900 text-lg">Add New Venue</h3>
+          <p class="text-xs text-slate-500">Configure a location for future events</p>
+        </div>
+        <button onclick="toggleModal('venueModal', false)" class="text-slate-400 hover:text-slate-600 p-1">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+      <form onsubmit="handleCreateVenue(event)" class="space-y-3">
+        <div>
+          <label class="block text-[11px] font-bold text-slate-600 uppercase mb-1">Venue Name</label>
+          <input type="text" id="vName" required placeholder="Main Auditorium" class="w-full px-3.5 py-2 text-xs bg-slate-50 border rounded-xl" />
+        </div>
+        <div>
+          <label class="block text-[11px] font-bold text-slate-600 uppercase mb-1">Address / Location</label>
+          <input type="text" id="vAddress" required placeholder="Academic Block 2, Campus" class="w-full px-3.5 py-2 text-xs bg-slate-50 border rounded-xl" />
+        </div>
+        <div>
+          <label class="block text-[11px] font-bold text-slate-600 uppercase mb-1">Maximum Seating Capacity</label>
+          <input type="number" id="vCapacity" required min="1" placeholder="250" class="w-full px-3.5 py-2 text-xs bg-slate-50 border rounded-xl" />
+        </div>
+        <button type="submit" class="w-full py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-bold transition">
+          Create Venue
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL 2: Create Event Modal -->
+  <div id="eventModal" class="fixed inset-0 bg-slate-950/40 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl max-w-lg w-full p-6 shadow-2xl border border-slate-100 space-y-4">
+      <div class="flex justify-between items-center">
+        <div>
+          <h3 class="font-bold text-slate-900 text-lg">Create New Event</h3>
+          <p class="text-xs text-slate-500">Publish a new event to the live roster</p>
+        </div>
+        <button onclick="toggleModal('eventModal', false)" class="text-slate-400 hover:text-slate-600 p-1">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+      <form onsubmit="handleCreateEvent(event)" class="space-y-3">
+        <div>
+          <label class="block text-[11px] font-bold text-slate-600 uppercase mb-1">Event Title</label>
+          <input type="text" id="eTitle" required placeholder="Annual AI Hackathon 2026" class="w-full px-3.5 py-2 text-xs bg-slate-50 border rounded-xl" />
+        </div>
+        <div>
+          <label class="block text-[11px] font-bold text-slate-600 uppercase mb-1">Description</label>
+          <textarea id="eDesc" rows="2" placeholder="Brief outline of the event..." class="w-full px-3.5 py-2 text-xs bg-slate-50 border rounded-xl"></textarea>
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-[11px] font-bold text-slate-600 uppercase mb-1">Date</label>
+            <input type="date" id="eDate" required class="w-full px-3.5 py-2 text-xs bg-slate-50 border rounded-xl" />
+          </div>
+          <div>
+            <label class="block text-[11px] font-bold text-slate-600 uppercase mb-1">Time</label>
+            <input type="time" id="eTime" required class="w-full px-3.5 py-2 text-xs bg-slate-50 border rounded-xl" />
+          </div>
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-[11px] font-bold text-slate-600 uppercase mb-1">Total Capacity</label>
+            <input type="number" id="eCapacity" required min="1" placeholder="100" class="w-full px-3.5 py-2 text-xs bg-slate-50 border rounded-xl" />
+          </div>
+          <div>
+            <label class="block text-[11px] font-bold text-slate-600 uppercase mb-1">Select Venue</label>
+            <select id="eVenueSelect" class="w-full px-3.5 py-2 text-xs bg-slate-50 border rounded-xl">
+              <option value="">-- No Specific Venue --</option>
+            </select>
+          </div>
+        </div>
+        <button type="submit" class="w-full py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-bold transition">
+          Publish Event
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL 3: Authentication Modal -->
   <div id="authModal" class="fixed inset-0 bg-slate-950/40 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
-    <div class="bg-white rounded-3xl max-w-sm w-full p-7 shadow-2xl border border-slate-100 space-y-5 animate-in fade-in zoom-in-95 duration-150">
+    <div class="bg-white rounded-3xl max-w-sm w-full p-6 shadow-2xl border border-slate-100 space-y-4">
       <div class="flex justify-between items-center">
         <div>
           <h3 id="authTitle" class="font-extrabold text-slate-900 text-lg">Welcome Back</h3>
-          <p id="authSubtitle" class="text-xs text-slate-500 mt-0.5">Enter your details to access your passes</p>
+          <p id="authSubtitle" class="text-xs text-slate-500">Sign in to claim tickets and manage events</p>
         </div>
-        <button onclick="toggleAuthModal(false)" class="text-slate-400 hover:text-slate-600 p-1">
+        <button onclick="toggleModal('authModal', false)" class="text-slate-400 hover:text-slate-600 p-1">
           <i data-lucide="x" class="w-5 h-5"></i>
         </button>
       </div>
 
-      <form onsubmit="handleAuthSubmit(event)" class="space-y-3.5">
+      <form onsubmit="handleAuthSubmit(event)" class="space-y-3">
         <div id="nameInputGroup" class="hidden">
-          <label class="block text-[11px] font-bold text-slate-600 uppercase tracking-wider mb-1">Full Name</label>
-          <input type="text" id="authName" class="w-full px-3.5 py-2.5 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:border-indigo-500" placeholder="Alex Morgan" />
+          <label class="block text-[11px] font-bold text-slate-600 uppercase mb-1">Full Name</label>
+          <input type="text" id="authName" placeholder="Admin User" class="w-full px-3.5 py-2 text-xs bg-slate-50 border rounded-xl" />
         </div>
-
         <div>
-          <label class="block text-[11px] font-bold text-slate-600 uppercase tracking-wider mb-1">Email Address</label>
-          <input type="email" id="authEmail" required class="w-full px-3.5 py-2.5 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:border-indigo-500" placeholder="alex@example.com" />
+          <label class="block text-[11px] font-bold text-slate-600 uppercase mb-1">Email</label>
+          <input type="email" id="authEmail" required placeholder="admin@eventsystem.com" class="w-full px-3.5 py-2 text-xs bg-slate-50 border rounded-xl" />
         </div>
-
         <div>
-          <label class="block text-[11px] font-bold text-slate-600 uppercase tracking-wider mb-1">Password</label>
-          <input type="password" id="authPassword" required class="w-full px-3.5 py-2.5 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:border-indigo-500" placeholder="••••••••" />
+          <label class="block text-[11px] font-bold text-slate-600 uppercase mb-1">Password</label>
+          <input type="password" id="authPassword" required placeholder="••••••••" class="w-full px-3.5 py-2 text-xs bg-slate-50 border rounded-xl" />
         </div>
-
-        <button type="submit" id="authSubmitBtn" class="w-full py-3 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-bold shadow-md shadow-indigo-200 transition mt-2">
+        <button type="submit" id="authSubmitBtn" class="w-full py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-bold transition">
           Sign In
         </button>
       </form>
@@ -206,406 +298,7 @@
     </div>
   </div>
 
-  <!-- JAVASCRIPT APPLICATION LOGIC -->
-  <script>
-    // --- Constant Configuration ---
-    // Hardcoded directly to your deployed Render backend
-    const API_BASE = "https://backend-event-3-toqe.onrender.com";
-
-    // Application State
-    let authToken = localStorage.getItem('pulse_token') || null;
-    let isRegisterMode = false;
-    let currentSessionId = localStorage.getItem('pulse_sess') || ('session_' + Math.random().toString(36).slice(2, 9));
-    localStorage.setItem('pulse_sess', currentSessionId);
-
-    // Initial Setup
-    document.addEventListener('DOMContentLoaded', () => {
-      lucide.createIcons();
-      updateAuthUI();
-      loadEvents();
-    });
-
-    // Smart Network Request (Handles `/api/...` or direct `/...` seamlessly)
-    async function apiRequest(endpoint, options = {}) {
-      options.headers = options.headers || {};
-      if (authToken) {
-        options.headers['Authorization'] = `Bearer ${authToken}`;
-      }
-
-      // Try with /api prefix first
-      let url = `${API_BASE}/api${endpoint.startsWith('/') ? endpoint : '/' + endpoint}`;
-      let res = await fetch(url, options);
-
-      // If 404, gracefully fall back to direct endpoint
-      if (res.status === 404) {
-        url = `${API_BASE}${endpoint.startsWith('/') ? endpoint : '/' + endpoint}`;
-        res = await fetch(url, options);
-      }
-      return res;
-    }
-
-    // --- Navigation Tabs ---
-    function navigate(view) {
-      ['explore', 'chat', 'tickets'].forEach(v => {
-        document.getElementById(`view-${v}`).classList.add('hidden');
-        const btn = document.getElementById(`nav-${v}`);
-        btn.className = "px-5 py-2 rounded-full text-xs font-semibold text-slate-600 hover:text-slate-900 transition flex items-center gap-1.5";
-      });
-
-      document.getElementById(`view-${view}`).classList.remove('hidden');
-      document.getElementById(`nav-${view}`).className = "px-5 py-2 rounded-full text-xs font-semibold bg-white text-slate-900 shadow-sm transition flex items-center gap-1.5";
-
-      if (view === 'tickets') loadMyTickets();
-      lucide.createIcons();
-    }
-
-    // --- Event Roster ---
-    async function loadEvents() {
-      const container = document.getElementById('eventsContainer');
-      container.innerHTML = `
-        <div class="col-span-full py-16 text-center text-slate-400">
-          <div class="w-8 h-8 border-2 border-indigo-600 border-t-transparent rounded-full animate-spin mx-auto mb-3"></div>
-          <p class="text-xs font-medium">Retrieving scheduled events...</p>
-        </div>
-      `;
-
-      try {
-        const res = await apiRequest('/events');
-        if (!res.ok) throw new Error('Failed to fetch events');
-        const events = await res.json();
-
-        if (!events || events.length === 0) {
-          container.innerHTML = `
-            <div class="col-span-full py-16 text-center bg-white rounded-3xl border border-slate-200/80 p-8">
-              <div class="w-12 h-12 rounded-2xl bg-slate-100 text-slate-400 flex items-center justify-center mx-auto mb-3">
-                <i data-lucide="calendar-x" class="w-6 h-6"></i>
-              </div>
-              <h3 class="font-bold text-slate-800 text-sm">No Events Scheduled Yet</h3>
-              <p class="text-xs text-slate-500 mt-1 max-w-sm mx-auto">Upcoming events will populate here once added by organizers.</p>
-            </div>
-          `;
-          lucide.createIcons();
-          return;
-        }
-
-        container.innerHTML = events.map(e => `
-          <div class="bg-white rounded-3xl border border-slate-200/80 p-6 shadow-sm hover:shadow-md transition flex flex-col justify-between">
-            <div class="space-y-3">
-              <div class="flex justify-between items-center">
-                <span class="text-[11px] font-bold px-3 py-1 rounded-full bg-indigo-50 text-indigo-700">ID #${e.id}</span>
-                <span class="text-[11px] font-semibold px-2.5 py-0.5 rounded-full ${e.status === 'SCHEDULED' ? 'bg-emerald-50 text-emerald-700' : 'bg-slate-100 text-slate-600'}">
-                  ${e.status || 'Active'}
-                </span>
-              </div>
-              <h3 class="font-bold text-base text-slate-900 leading-snug">${escapeHtml(e.title)}</h3>
-              <p class="text-xs text-slate-500 line-clamp-2 leading-relaxed">${escapeHtml(e.description || 'No description provided.')}</p>
-              
-              <div class="pt-2 border-t border-slate-100 space-y-1.5 text-xs text-slate-600">
-                <div class="flex items-center gap-2">
-                  <i data-lucide="calendar" class="w-3.5 h-3.5 text-slate-400"></i>
-                  <span>${e.date || 'TBA'} at ${e.time || 'TBA'}</span>
-                </div>
-                <div class="flex items-center gap-2">
-                  <i data-lucide="users" class="w-3.5 h-3.5 text-slate-400"></i>
-                  <span>Capacity: ${e.capacity || 100} seats</span>
-                </div>
-              </div>
-            </div>
-
-            <div class="pt-5 mt-4">
-              <button onclick="bookSeat(${e.id})" class="w-full py-2.5 bg-slate-900 hover:bg-indigo-600 text-white rounded-xl text-xs font-semibold shadow-sm transition flex items-center justify-center gap-1.5">
-                <span>Reserve Seat</span>
-                <i data-lucide="arrow-up-right" class="w-3.5 h-3.5"></i>
-              </button>
-            </div>
-          </div>
-        `).join('');
-
-        lucide.createIcons();
-      } catch (err) {
-        container.innerHTML = `
-          <div class="col-span-full py-16 text-center bg-rose-50 rounded-3xl border border-rose-100 p-8">
-            <p class="text-xs font-semibold text-rose-600">Could not retrieve event roster. If the backend just woke up, click Refresh in 10 seconds.</p>
-          </div>
-        `;
-      }
-    }
-
-    async function bookSeat(eventId) {
-      if (!authToken) {
-        showToast('Please sign in to reserve tickets', 'info');
-        toggleAuthModal(true);
-        return;
-      }
-
-      try {
-        const res = await apiRequest('/registrations', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ event_id: eventId })
-        });
-        const data = await res.json();
-        if (res.ok) {
-          showToast(`Seat confirmed for Event #${eventId}!`, 'success');
-        } else {
-          showToast(data.detail || 'Reservation unsuccessful', 'error');
-        }
-      } catch (err) {
-        showToast('Server communication error', 'error');
-      }
-    }
-
-    // --- AI Agent Concierge ---
-    async function handleSendChat(e) {
-      e.preventDefault();
-      const input = document.getElementById('chatInput');
-      const text = input.value.trim();
-      if (!text) return;
-
-      input.value = '';
-      appendUserBubble(text);
-
-      const loadingId = 'loader_' + Date.now();
-      appendThinkingBubble(loadingId);
-
-      try {
-        const res = await apiRequest('/chat', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ message: text, session_id: currentSessionId })
-        });
-
-        document.getElementById(loadingId)?.remove();
-        if (!res.ok) throw new Error();
-        const data = await res.json();
-        appendAgentBubble(data);
-      } catch (err) {
-        document.getElementById(loadingId)?.remove();
-        appendErrorBubble('Our assistant is currently experiencing high load. Please try again.');
-      }
-    }
-
-    function quickPrompt(str) {
-      document.getElementById('chatInput').value = str;
-      handleSendChat(new Event('submit'));
-    }
-
-    function appendUserBubble(msg) {
-      const stream = document.getElementById('chatStream');
-      const div = document.createElement('div');
-      div.className = "flex justify-end";
-      div.innerHTML = `<div class="bg-indigo-600 text-white rounded-2xl rounded-tr-none px-4 py-2.5 text-xs max-w-sm shadow-sm">${escapeHtml(msg)}</div>`;
-      stream.appendChild(div);
-      stream.scrollTop = stream.scrollHeight;
-    }
-
-    function appendThinkingBubble(id) {
-      const stream = document.getElementById('chatStream');
-      const div = document.createElement('div');
-      div.id = id;
-      div.className = "flex gap-2.5 items-center text-slate-400 text-xs italic";
-      div.innerHTML = `<div class="w-2 h-2 rounded-full bg-indigo-500 animate-ping"></div> Concierge is thinking...`;
-      stream.appendChild(div);
-      stream.scrollTop = stream.scrollHeight;
-    }
-
-    function appendAgentBubble(data) {
-      const stream = document.getElementById('chatStream');
-      const div = document.createElement('div');
-      div.className = "flex gap-3 max-w-md";
-      
-      let tools = '';
-      if (data.tools_used && data.tools_used.length) {
-        tools = `<div class="pt-2 border-t border-slate-100 flex gap-1 items-center flex-wrap">
-          <span class="text-[10px] uppercase font-bold text-slate-400">Action:</span>
-          ${data.tools_used.map(t => `<span class="px-2 py-0.5 rounded bg-indigo-50 text-indigo-700 text-[10px] font-mono">${t}</span>`).join('')}
-        </div>`;
-      }
-
-      div.innerHTML = `
-        <div class="w-8 h-8 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center shrink-0">
-          <i data-lucide="bot" class="w-4 h-4"></i>
-        </div>
-        <div class="bg-white border border-slate-200/80 rounded-2xl rounded-tl-none p-4 text-xs text-slate-700 shadow-sm leading-relaxed space-y-2">
-          <div class="whitespace-pre-line">${escapeHtml(data.reply)}</div>
-          ${tools}
-        </div>
-      `;
-      stream.appendChild(div);
-      lucide.createIcons();
-      stream.scrollTop = stream.scrollHeight;
-    }
-
-    function appendErrorBubble(msg) {
-      const stream = document.getElementById('chatStream');
-      const div = document.createElement('div');
-      div.className = "text-xs text-rose-500 bg-rose-50 p-3 rounded-xl border border-rose-100";
-      div.textContent = msg;
-      stream.appendChild(div);
-      stream.scrollTop = stream.scrollHeight;
-    }
-
-    function clearChat() {
-      document.getElementById('chatStream').innerHTML = `<div class="text-center py-4 text-xs text-slate-400">Conversation reset.</div>`;
-    }
-
-    // --- My Tickets Tab ---
-    async function loadMyTickets() {
-      const container = document.getElementById('ticketsContainer');
-      if (!authToken) {
-        container.innerHTML = `
-          <div class="text-center py-14 bg-white rounded-3xl border border-slate-200/80 p-6">
-            <h3 class="font-bold text-slate-800 text-sm">Sign in to view your tickets</h3>
-            <p class="text-xs text-slate-500 mt-1 mb-4">You must be logged in to inspect your reservations.</p>
-            <button onclick="toggleAuthModal(true)" class="px-4 py-2 bg-indigo-600 text-white rounded-xl text-xs font-semibold">Sign In</button>
-          </div>
-        `;
-        return;
-      }
-
-      container.innerHTML = `<div class="text-center py-12 text-xs text-slate-400">Loading your tickets...</div>`;
-
-      try {
-        const res = await apiRequest('/registrations/my');
-        if (!res.ok) throw new Error();
-        const tickets = await res.json();
-
-        if (!tickets || tickets.length === 0) {
-          container.innerHTML = `
-            <div class="text-center py-12 bg-white rounded-3xl border border-slate-200/80 p-6">
-              <p class="text-xs text-slate-500">You do not have any confirmed tickets yet.</p>
-            </div>
-          `;
-          return;
-        }
-
-        container.innerHTML = tickets.map(t => `
-          <div class="bg-white rounded-2xl border border-slate-200/80 p-4 shadow-sm flex items-center justify-between">
-            <div>
-              <span class="font-bold text-slate-900 text-sm">Pass for Event #${t.event_id}</span>
-              <span class="ml-2 text-[10px] font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full">${t.status}</span>
-            </div>
-            <button onclick="cancelTicket(${t.event_id})" class="text-xs text-rose-600 hover:bg-rose-50 px-3 py-1.5 rounded-lg border border-rose-200 transition font-medium">
-              Cancel Pass
-            </button>
-          </div>
-        `).join('');
-      } catch (err) {
-        container.innerHTML = `<div class="text-center py-8 text-xs text-rose-500">Could not load ticket records.</div>`;
-      }
-    }
-
-    async function cancelTicket(eventId) {
-      if (!confirm('Are you sure you want to release this ticket?')) return;
-      try {
-        const res = await apiRequest(`/registrations/${eventId}`, { method: 'DELETE' });
-        if (res.ok) {
-          showToast('Ticket cancelled', 'info');
-          loadMyTickets();
-        } else {
-          showToast('Failed to cancel ticket', 'error');
-        }
-      } catch (err) {
-        showToast('Network error', 'error');
-      }
-    }
-
-    // --- Authentication ---
-    function updateAuthUI() {
-      const slot = document.getElementById('navAuthSlot');
-      if (authToken) {
-        slot.innerHTML = `
-          <button onclick="logout()" class="px-4 py-2 rounded-full text-xs font-semibold text-slate-600 hover:text-rose-600 hover:bg-rose-50 border border-slate-200 transition">
-            Sign Out
-          </button>
-        `;
-      } else {
-        slot.innerHTML = `
-          <button onclick="toggleAuthModal(true)" class="px-5 py-2.5 rounded-full text-xs font-bold bg-slate-900 hover:bg-indigo-600 text-white shadow-sm transition">
-            Sign In
-          </button>
-        `;
-      }
-    }
-
-    function toggleAuthModal(show) {
-      document.getElementById('authModal').classList.toggle('hidden', !show);
-    }
-
-    function toggleAuthMode() {
-      isRegisterMode = !isRegisterMode;
-      document.getElementById('nameInputGroup').classList.toggle('hidden', !isRegisterMode);
-      document.getElementById('authTitle').textContent = isRegisterMode ? 'Create Account' : 'Welcome Back';
-      document.getElementById('authSubtitle').textContent = isRegisterMode ? 'Sign up to register for events' : 'Enter your details to access your passes';
-      document.getElementById('authSubmitBtn').textContent = isRegisterMode ? 'Register' : 'Sign In';
-      document.getElementById('authSwitchText').textContent = isRegisterMode ? 'Already have an account?' : "Don't have an account?";
-      document.getElementById('authSwitchBtn').textContent = isRegisterMode ? 'Sign In' : 'Create Account';
-    }
-
-    async function handleAuthSubmit(e) {
-      e.preventDefault();
-      const email = document.getElementById('authEmail').value;
-      const password = document.getElementById('authPassword').value;
-
-      try {
-        if (isRegisterMode) {
-          const name = document.getElementById('authName').value;
-          const res = await apiRequest('/auth/register', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ name, email, password, role: 'USER' })
-          });
-          const data = await res.json();
-          if (!res.ok) throw new Error(data.detail || 'Registration failed');
-          showToast('Account created! Please sign in.', 'success');
-          toggleAuthMode();
-        } else {
-          const res = await apiRequest('/auth/login', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ email, password })
-          });
-          const data = await res.json();
-          if (!res.ok) throw new Error(data.detail || 'Invalid email or password');
-          authToken = data.access_token;
-          localStorage.setItem('pulse_token', authToken);
-          toggleAuthModal(false);
-          updateAuthUI();
-          showToast('Signed in successfully', 'success');
-        }
-      } catch (err) {
-        showToast(err.message, 'error');
-      }
-    }
-
-    function logout() {
-      authToken = null;
-      localStorage.removeItem('pulse_token');
-      updateAuthUI();
-      navigate('explore');
-      showToast('Signed out', 'info');
-    }
-
-    // --- Helpers ---
-    function showToast(msg, type = 'info') {
-      const container = document.getElementById('toastContainer');
-      const toast = document.createElement('div');
-      toast.className = `px-4 py-3 rounded-2xl text-xs font-semibold shadow-lg pointer-events-auto border transition duration-200 animate-in fade-in slide-in-from-bottom-2 ${
-        type === 'success' ? 'bg-slate-900 text-white border-slate-800' :
-        type === 'error' ? 'bg-rose-600 text-white border-rose-700' :
-        'bg-white text-slate-800 border-slate-200'
-      }`;
-      toast.textContent = msg;
-      container.appendChild(toast);
-      setTimeout(() => {
-        toast.remove();
-      }, 4000);
-    }
-
-    function escapeHtml(str) {
-      if (!str) return '';
-      return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-    }
-  </script>
+  <!-- Main Application Script -->
+  <script src="app.js"></script>
 </body>
 </html>
