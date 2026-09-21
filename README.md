@@ -110,4 +110,4 @@ Save this file as **`frontend/README.md`** and commit it to your repository.
 ```
 Live Demo
 --
-frontend-> https://agentic-ai-smart-event-management-i-blond.vercel.app/
+frontend-> https://agentic-ai-smart-event-management-i-three.vercel.app/
